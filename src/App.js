@@ -224,3 +224,50 @@ function App() {
 
 export default App;
 
+//-------------------------------------------------------------------useCallback hook-----------------------------------------------------------------------//
+
+import React, { useState, useEffect, useRef, useMemo, useCallback} from "react";
+import List from "./getItems";
+
+
+ // useCallback hook
+
+function App() {
+  
+  const [val,setVal] = useState(0);
+  const [dark,setDark] = useState('white');
+
+
+  const getItem = useCallback((n)=>{
+    return [val+n,val+1+n,val+2+n];
+  },[val]);
+
+  function changeTheme(){
+    setDark('Black');
+  }
+  return (
+    <>
+    <input  type="text" value={val} onChange = {(e)=>{setVal(parseInt(e.target.value))}} /> 
+    <button onClick={changeTheme}> change theme - {dark} </button>
+    <List getIitem={getItem}/>
+    
+
+    </>
+  )
+}
+
+export default App;
+
+// GetItems
+import React, { useEffect, useState } from "react";
+
+
+export default function List({getIitem}){
+     const [items,setItem] = useState([]);
+
+     useEffect(()=>{
+         console.log('them changed');
+       setItem(getIitem(7));
+     },[getIitem]);
+    return items.map(item=> <div key={item}> {item}</div>)
+}
