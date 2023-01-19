@@ -52,6 +52,44 @@ function App(){
 
 export default App;
 
-//-------------------------------------------------------- UseState HooK -----------------------------------------------------------------------------------//
+//-------------------------------------------------------- UseEffect HooK -----------------------------------------------------------------------------------//
+
+import React, { useState, useEffect } from "react";
 
 
+function App() {
+  const [resourceTye, setRecourseType] = useState('post');
+  function post (){
+    setRecourseType('post');
+  }
+  function comment (){
+    setRecourseType('comment');
+  }
+  function share (){
+    setRecourseType('share');
+  }
+
+  useEffect(()=>{
+    console.log('resource type changed')
+
+    return () => {
+      console.log('resource type changed from return')
+    }
+  },[resourceTye])
+
+
+  return (
+    <>
+      <div>
+        <button onClick={post}> post </button>
+        <button onClick={comment}> comment </button>
+        <button onClick={share}> share </button>
+      </div>
+      <h1> {resourceTye} </h1>
+    </>
+  )
+}
+
+export default App;
+
+//--------------------------------------------------------  useContext HooK -----------------------------------------------------------------------------------//
