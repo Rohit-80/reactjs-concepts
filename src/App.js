@@ -136,4 +136,59 @@ function Test(){
 
 
 export default Test;
-/--------------------------------------------------------------------------------------------------------------------------------------/
+/-------------------------------------------------------------- useRef ------------------------------------------------------------------------/
+import React, { useState, useEffect, useRef} from "react";
+
+
+// useRef
+
+  // first use -
+  // It can be used to store a mutable value that does not cause a re-render when updated.
+  // second use -It can be used to access a DOM element directly.
+  
+function App() {
+ 
+  const [val,setVal] =useState(0);
+  // const [rendnumer,setRend] =useState(0);
+  const rendnumer = useRef(0);
+  const inputref = useRef();
+  const prevname = useRef();
+
+  // useEffect(()=>{
+  //   setRend((prevRend => prevRend+1))
+  // },[val]);
+
+   useEffect(()=>{
+     rendnumer.current = rendnumer.current+1;
+  });
+
+  function changeTheme(){
+     inputref.current.focus();
+  }
+  useEffect(()=>{
+     console.log(inputref.current)
+  })
+
+ // persisting a value
+  useEffect(()=>{
+       prevname.current = val;
+  },[val])
+
+  
+
+
+  return (
+    <>
+    <input ref={inputref} type="text" value={val} onChange = {(e)=>{setVal(e.target.value)}} /> 
+    <button onClick={changeTheme}> change </button>
+    <h1> my name is {val} it is used to be {prevname.current} </h1>
+    <h1> renders {rendnumer.current} </h1>
+
+    </>
+  )
+}
+
+export default App;
+
+/--------------------------------------------------------------useMemo-----------------------------------------------------------------/
+
