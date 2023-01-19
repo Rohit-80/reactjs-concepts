@@ -93,3 +93,47 @@ function App() {
 export default App;
 
 //--------------------------------------------------------  useContext HooK -----------------------------------------------------------------------------------//
+// App.jsx
+import React, { useState, useEffect , useContext, createContext} from "react";
+import Test from "./test";
+const Name = createContext();
+function App() {
+ 
+  // creating Provider
+
+  return (
+    <>
+    <div>
+      <Name.Provider value={"rohit"}>
+       <Test />
+     </Name.Provider>
+     </div>
+    </>
+  )
+}
+
+// test.jsx
+import React, { useContext } from "react"
+import { Name } from "./App";
+function Test(){
+     const fname = useContext(Name);
+    return (
+       <>
+         // By using old tradition method
+            {/* <Name.Consumer>{
+                (fname) => {
+                    return (
+                        <h1> Hi my name is {fname} </h1>);
+                }
+            }
+
+            </Name.Consumer> */}
+         // directly call by useContext Hook
+        <h1> Hi my name is {fname} </h1>;
+       </>
+    )
+}
+
+
+export default Test;
+/--------------------------------------------------------------------------------------------------------------------------------------/
