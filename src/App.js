@@ -192,3 +192,35 @@ export default App;
 
 /--------------------------------------------------------------useMemo-----------------------------------------------------------------/
 
+
+function App() {
+  // use memo also can be used with reference object means when component is calling its object reference is change
+  // so usecontext detect as changed and change their val so solution to this is usememo  which cache the value.
+  
+  const [val,setVal] =useState(0);
+  // const [double,setDouble] =useState(1);
+  const double = useMemo(()=>{
+     return slowFunction(val) ;
+  },[val]);
+
+  function changeTheme(){
+
+  }
+  
+  function slowFunction(n){
+    for(let i = 0; i <= 100000000; i++){}
+    return n*2;
+  }
+
+  return (
+    <>
+    <input  type="text" value={val} onChange = {(e)=>{setVal(parseInt(e.target.value))}} /> 
+    <button onClick={changeTheme}> change </button>
+    <h1> {double} </h1>
+
+    </>
+  )
+}
+
+export default App;
+
